@@ -8,27 +8,29 @@ contract ProductContract {
         string productName;
         string locaton;
         uint timestamp;
+        uint blockNumber;
     }
 
     event product (
         uint id,
         string productName,
         string location,
-        uint timestamp
+        uint timestamp,
+        uint blockNumber
     );
 
     myStruct[] public products;
 
     /* 사용자가 입력한 제품을 등록 */
     function addProduct (uint _id, string memory _firstString, string memory _secondString) public {
-        products.push(myStruct(_id, _firstString, _secondString, block.timestamp));
+        products.push(myStruct(_id, _firstString, _secondString, block.timestamp, block.number));
         total++;
-        emit product(_id, _firstString, _secondString, block.timestamp);
+        emit product(_id, _firstString, _secondString, block.timestamp, block.number);
     }
 
     /* 번호에 해당하는 제품의 이름을 리턴 */
-    function getProduct(uint _idx) public view returns (uint, string memory, string memory, uint) {
-        return (products[_idx].id, products[_idx].productName, products[_idx].locaton, products[_idx].timestamp);
+    function getProduct(uint _idx) public view returns (uint, string memory, string memory, uint, uint) {
+        return (products[_idx].id, products[_idx].productName, products[_idx].locaton, products[_idx].timestamp, products[_idx].blockNumber);
     }
 
     /* 제품 등록의 수를 리턴 */
